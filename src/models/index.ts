@@ -19,7 +19,7 @@ export const GeometrySchema = z.object({
 export const PlanInfoSchema = z.object({
   planId: z.string().optional(), // Generated later
   planType: z.enum(['BMP', 'ÖTM']).optional(),
-  betreiber: z.enum(['Westnetz', 'Rhein Energie', 'RWE Power', 'Amprion']),
+  betreiber: z.enum(['Westnetz', 'Rhein Energie', 'Rheinische Netzgesellschaft', 'RWE', 'RWE Power', 'Amprion']),
   beschreibung: z.string(),
   bl: z.string(),
   mastbereich: z.object({

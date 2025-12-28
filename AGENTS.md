@@ -55,8 +55,8 @@ This tool is a specialized extraction agent. It reads PDF files containing veget
 
 ## 4. Data Schemas (Source of Truth)
 
-Do not invent new JSON structures. Stick rigidly to the definitions in `docs/schemas.md`.
-If you need to add fields, update the schema first and ensure backward compatibility, or if a new Schema is needed, create it explicitly and document it in `docs/schemas.md` as well as here in `AGENTS.md`.
+Do not invent new JSON structures. Stick rigidly to the Zod definitions in `src/models/index.ts`.
+If you need to add fields, update the Zod schema first and ensure backward compatibility.
 The main output objects are:
 
 * **`PDF-Plan-Info`**: Metadata from the right side of the PDF.
@@ -83,7 +83,7 @@ Generate deterministic IDs for database consistency:
 
 If you make changes to code, parsing logic, or domain rules, ensure the following documentation files are updated accordingly:
 
-1. Update `docs/schemas.md` if the JSON structure changes.
+1. Update `src/models/index.ts` and `docs/schemas.md` if the data structure changes.
 2. Update `docs/pdf_plan.md` if parsing logic for file names or layout changes.
 3. Update `docs/architecture.md` if the extraction pipeline or technical approach changes.
 4. Check and update `docs/roadmap.md` when completing milestones or planning new features.

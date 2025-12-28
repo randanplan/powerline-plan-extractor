@@ -43,12 +43,12 @@ Die detaillierte technische Dokumentation befindet sich im `docs/` Ordner:
 
 * **Sprache:** TypeScript / Node.js
 * **PDF-Verarbeitung:** `pdf-lib`, `pdfjs-dist`
-* **Validierung:** JSON Schema
+* **Validierung:** Zod
 * **Datenformate:** JSON, GeoJSON (für Geometrien)
 
 ## 📦 Datenmodelle
 
-Der Agent extrahiert Daten in drei Hauptkategorien. Die genauen JSON-Schemas sind in `docs/schemas.md` definiert.
+Der Agent extrahiert Daten in drei Hauptkategorien. Die genauen Datenstrukturen sind in `docs/schemas.md` und `src/models/index.ts` definiert.
 
 1. **Plan-Info (`PDF-Plan-Info`)**:
     * Administrative Daten (Betreiber, Blatt, Datum).
