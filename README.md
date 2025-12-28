@@ -35,7 +35,8 @@ Die detaillierte technische Dokumentation befindet sich im `docs/` Ordner:
 | :--- | :--- |
 | [📄 **PDF-Plan Spezifikation**](docs/pdf_plan.md) | Detaillierte Beschreibung der Eingabe-Formate, Layouts und Dateinamen-Konventionen. |
 | [💾 **JSON Schemas**](docs/schemas.md) | Definition der Ausgabe-Datenstrukturen (Plan-Info, Maßnahmen, Masten). |
-| [🏗️ **Architektur**](docs/architecture.md) | *(Geplant)* Einblick in die Extraktions-Pipeline und genutzte Technologien. |
+| [🏗️ **Architektur**](docs/architecture.md) | Einblick in die Extraktions-Pipeline, PDF-Operatoren und Farb-Logik. |
+| [🗺️ **Roadmap**](docs/roadmap.md) | Geplante Features, nächste Schritte und Vision. |
 | [🌍 **Georeferenzierung**](docs/georeferencing.md) | *(Geplant)* Umgang mit Koordinatensystemen und Verortung der Maßnahmen. |
 
 ## 🛠️ Technologie-Stack
@@ -62,6 +63,8 @@ Der Agent extrahiert Daten in drei Hauptkategorien. Die genauen JSON-Schemas sin
 
 ## 🚀 Installation & Nutzung
 
+### Setup
+
 ```bash
 # Repository klonen
 git clone https://github.com/dein-username/powerline-plan-extractor.git
@@ -71,9 +74,46 @@ npm install
 
 # Build
 npm run build
+```
 
+### Testing
+
+Um die Tests auszuführen, verwenden Sie den folgenden Befehl:
+
+```bash
+npm test
+```
+
+### Usage as a CLI (Example)
+
+```bash
 # Agent ausführen (Beispiel)
 npm start -- --input ./data/plans --output ./data/json
+```
+
+### Usage as a Library
+
+Sie können die exportierten Funktionen auch direkt in Ihrem Code verwenden. Zum Beispiel, um Text aus einem PDF zu extrahieren:
+
+```typescript
+import { extractPdfText } from './src/parsers/pdf';
+
+async function main() {
+  const text = await extractPdfText('./sample_data/ÖTM-2006 Köln-0020.PDF');
+  console.log(text);
+}
+
+main();
+```
+
+## 🛠️ Development
+
+### Generating Models
+
+Die TypeScript-Modelle in `src/models` werden aus den JSON-Schemas in `schema/` generiert. Wenn Sie die Schemas ändern, müssen Sie die Modelle neu generieren:
+
+```bash
+npm run generate-models
 ```
 
 ## 🤝 Konventionen

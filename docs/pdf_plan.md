@@ -26,6 +26,15 @@ Es werden primär zwei Typen von Plänen unterschieden, die sich in Layout und B
   * `Limburg-Weilburg`: Kreis/Region
   * `0004`: Blattnummer (immer 4-stellig)
   * `15_20`: Mastbereich (von Mast 15 bis 20)
+  
+#### 2.1.1. Metadaten (BMP-spezifisch)
+
+In Plan-Infos von BMP-Plänen können folgende Metadaten extrahiert werden:
+
+* **Projekt-Nummer:** Z.B. `01080`
+* **Los-ID:** nicht vorhanden in BMP, nur in ÖTM-Plänen.
+* **Los-Name:** nicht vorhanden in BMP, nur in ÖTM-Plänen.
+* **Blatt-Nummer:** Z.B. `0004`
 
 ### 2.2. ÖTM-Pläne (Westnetz)
 
@@ -38,6 +47,14 @@ Es werden primär zwei Typen von Plänen unterschieden, die sich in Layout und B
   * `2006`: Losnummer (Bekannte Lose: 2006, 2008, 2009)
   * `Köln`: Losname
   * `0008`: Blattnummer (immer 4-stellig)
+
+#### 2.2.1. Metadaten (ÖTM-spezifisch)
+
+In Plan-Infos von ÖTM-Plänen können folgende Metadaten extrahiert werden:
+
+* **Los-ID:** Z.B. `2006`
+* **Los-Name:** Z.B. `Köln`
+* **Projekt-Nummer:** Nicht vorhanden in ÖTM, nur in BMP-Plänen.
 
 > **Hinweis:** Dateien, die nicht diesen Mustern entsprechen (z.B. Excel-Mengengerüste, Log-Dateien oder Großformat-Übersichtskarten wie `OETM_LOSBLATT-ÖTM-Üb.*.PDF`), werden bei der Plan-Verarbeitung ignoriert.
 
@@ -86,7 +103,9 @@ Mastnummern werden grundsätzlich als **4-stellige Strings** behandelt und mit f
 **Sonderfälle:**
 
 * **Portale:** Beginnen mit 'P' (z.B. `P1` -> `"P001"`).
-* **Ersatzmasten:** Beginnen oft mit '1' an erster Stelle bei 4-stelligen Zahlen (z.B. `"1017"` als Ersatz für Mast 17).
+* **Ersatzmasten:**
+  * *4-stellig:* Beginnen oft mit '1' an erster Stelle bei 4-stelligen Zahlen (z.B. `"1017"` als Ersatz für Mast 17).
+  * *3-stellig:* Können ebenfalls Ersatzmasten darstellen, erkennbar an Sprüngen in der Sequenz (z.B. `93` -> `94` -> `195` -> `196` -> `97`). Diese werden wie gewohnt auf 4 Stellen gepadded: `"0195"`, `"0196"`.
 
 ### 4.2. Bauleitnummern (BL)
 
@@ -104,6 +123,27 @@ Zur eindeutigen Identifikation von Objekten werden zusammengesetzte IDs verwende
   * *Beispiel:* `00200015` (BL 20, Mast 15)
 * **Maßnahmen-ID:** `{Plan-ID}_{peId}`
   * *Beispiel:* `..._081225_V0_0.1` (wobei `peId` die Nummer im Maßnahmen-Kästchen ist, z.B. "0.1").
+
+### 4.4. Farbkodierung der Maßnahmen
+
+Die Maßnahmenflächen auf der Karte werden durch spezifische Füllfarben unterschieden. Diese Farben sind entscheidend für die korrekte Klassifizierung der Rechtecke.
+
+* **Maßnahmen (Vegetationspflege):**
+  * **ÖTM-Pläne:**
+    * Farbe: **Hellgelb**
+    * RGB (0-255): `255, 255, 224`
+    * RGB (0-1): `1.0, 1.0, 0.878`
+  * **BMP-Pläne:**
+    * Farbe: **Gelb**
+    * RGB (0-255): `255, 255, 153`
+    * RGB (0-1): `1.0, 1.0, 0.6`
+  * Darstellung: Gefülltes Rechteck mit schwarzem Rand (`fillStroke` oder `closeFillStroke`).
+
+* **Info-Boxen (Hinweise):**
+  * Farbe: **Orange**
+  * RGB (0-255): `255, 128, 64`
+  * RGB (0-1): `1.0, 0.502, 0.251`
+  * Darstellung: Gefülltes Rechteck mit schwarzem Rand (`fillStroke`).
 
 ## 5. Extraktionslogik
 

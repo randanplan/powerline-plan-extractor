@@ -47,9 +47,17 @@ This tool is a specialized extraction agent. It reads PDF files containing veget
 * **Image/Vision Origin:** Top-Left (`0,0`).
 * When extracting `rectangles` for the JSON schema, ensure coordinates are consistent (prefer image coordinates: Top-Left origin).
 
+### 3.4. Color Coding (Measures)
+
+* **ÖTM Plans:** Yellow is `[255, 255, 224]` (Light Yellow).
+* **BMP Plans:** Yellow is `[255, 255, 153]` (Yellow).
+* **Logic:** Parsers must accept **both** variants to support all plan types.
+
 ## 4. Data Schemas (Source of Truth)
 
 Do not invent new JSON structures. Stick rigidly to the definitions in `docs/schemas.md`.
+If you need to add fields, update the schema first and ensure backward compatibility, or if a new Schema is needed, create it explicitly and document it in `docs/schemas.md` as well as here in `AGENTS.md`.
+The main output objects are:
 
 * **`PDF-Plan-Info`**: Metadata from the right side of the PDF.
 * **`Maßnahmen` (Measures)**: Objects extracted from the map (colored rectangles). Key fields: `peId`, `type`, `rectangle`.
@@ -77,8 +85,10 @@ If you make changes to code, parsing logic, or domain rules, ensure the followin
 
 1. Update `docs/schemas.md` if the JSON structure changes.
 2. Update `docs/pdf_plan.md` if parsing logic for file names or layout changes.
-3. Keep `README.md` in sync with new features.
-4. Update this `AGENTS.md` if domain rules or coding conventions change.
+3. Update `docs/architecture.md` if the extraction pipeline or technical approach changes.
+4. Check and update `docs/roadmap.md` when completing milestones or planning new features.
+5. Keep `README.md` in sync with new features.
+6. Update this `AGENTS.md` if domain rules or coding conventions change.
 
 ## 8. Glossary (German -> Context)
 
@@ -118,19 +128,24 @@ If you make changes to code, parsing logic, or domain rules, ensure the followin
 * *Traverse* = Crossarm of a power pylon
 * *Los* = Lot/Batch of plans
 
-## 9. Git Workflow & Version Control
+## 9. Git Workflow & Versionierung
 
-* **Commit Style:** Follow [Conventional Commits](https://www.conventionalcommits.org/).
-  * Format: `type(scope): description`
-  * Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
-  * Example: `feat(parser): implement regex for Westnetz filenames`
-* **Atomic Commits:** Group changes logically. Do not mix formatting fixes with logic changes.
+* **Commit-Stil:** Nutze [Gitmoji](https://gitmoji.dev/) und Conventional Commits.
+  * Format: `Emoji [type(scope)] Beschreibung`
+  * Typen: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
+  * Beispiel: `✨ [feat(parser)] Regex für Westnetz-Dateinamen implementiert`
+* **Atomare Commits:** Gruppiere Änderungen logisch. Vermische keine Formatierungsänderungen mit Logik-Anpassungen.
 * **Pushing:**
-  * **Never push automatically** without user confirmation.
-  * Before pushing, ensure build (`npm run build`) passes, tsc runs without errors (`tsc --noEmit`) and documentation is updated.
-* **Branching:** Use feature branches for new features or bug fixes. Merge into `main` only after review.
-* Pull the latest `main` before starting new work to avoid conflicts.
-* Write clear commit messages in German, reflecting the changes made.
-* Include references to relevant documentation updates in commit messages.
-* Tag releases with semantic versioning (e.g., `v1.0.0`).
-* Regularly review and update this `AGENTS.md` file to reflect any changes in workflow or project structure.
+  * **Niemals automatisch pushen** ohne Bestätigung des Nutzers.
+  * Vor dem Push sicherstellen, dass der Build (`npm run build`) durchläuft, `tsc --noEmit` keine Fehler wirft und die Dokumentation aktuell ist.
+* **Branching:** Nutze Feature-Branches für neue Funktionen oder Bugfixes. Merge in `main` nur nach Review.
+* Ziehe den neuesten `main` Stand, bevor du neue Arbeiten beginnst, um Konflikte zu vermeiden.
+* Verfasse klare Commit-Nachrichten auf **Deutsch**, die die Änderungen widerspiegeln.
+* Referenziere relevante Dokumentations-Updates in den Commit-Nachrichten.
+* Tagge Releases mit Semantic Versioning (z.B. `v1.0.0`).
+
+## 10. Maintenance & Future Changes
+
+* Halte die Codebasis sauber und gut dokumentiert.
+* Führe regelmäßige Code-Reviews durch, um die Einhaltung der Domain-Regeln sicherzustellen.
+* Überprüfe und aktualisiere regelmäßig diese `AGENTS.md`, um Änderungen im Workflow oder der Projektstruktur abzubilden.

@@ -1,12 +1,14 @@
 {
   "name": "powerline-plan-extractor",
   "version": "1.0.0",
-  "description": "Automatisierte Datenextraktion aus Pflegeplänen für Hochspannungsfreileitungen.",
+  "description": "Automatisierte Datenextraktion aus PDF-Pflegeplänen für Hochspannungsfreileitungen.",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "visualize": "ts-node src/visualize.ts",
+    "test": "jest",
+    "generate-models": "json2ts -i schema/planinfo_schema.json -o src/models/PlanInfo.ts && json2ts -i schema/masten_schema.json -o src/models/Mast.ts && json2ts -i schema/massnahmen_schema.json -o src/models/Massnahme.ts"
   },
   "keywords": [
     "pdf",
@@ -20,10 +22,17 @@
   "license": "MIT",
   "dependencies": {
     "pdf-lib": "^1.17.1",
-    "pdfjs-dist": "^4.0.379"
+    "pdfjs-dist": "^4.0.379",
+    "zod": "^4.2.1"
   },
   "devDependencies": {
-    "typescript": "^5.3.3",
-    "@types/node": "^20.11.5"
+    "@types/jest": "^30.0.0",
+    "@types/node": "^20.11.5",
+    "jest": "^30.2.0",
+    "jest-environment-jsdom": "^30.2.0",
+    "json-schema-to-typescript": "^15.0.4",
+    "ts-jest": "^29.4.6",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
   }
 }

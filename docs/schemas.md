@@ -25,7 +25,7 @@ Dieses Schema dient der Extraktion von allgemeinen Informationen und Metadaten e
     },
     "planType": {
       "type": "string",
-      "description": "Typ des Plans, je nachdem von welchem Betreiber der Plan stammt. 'BMP' (Baummanagementplan) oder 'ÖTM' (Ökologischer Trassenmanagementplan). Im Dateinamen ist oft ein 'OETM' oder 'ÖTM' enthalten.",
+      "description": "Typ des Plans, je nachdem von welchem Betreiber der Plan stammt. 'BMP' (Biotopmanagementplan) oder 'ÖTM' (Ökologischer Trassenmanagementplan). Im Dateinamen ist oft ein 'OETM' oder 'ÖTM' enthalten.",
       "enum": [
         "BMP",
         "ÖTM"
@@ -37,6 +37,8 @@ Dieses Schema dient der Extraktion von allgemeinen Informationen und Metadaten e
       "enum": [
         "Westnetz",
         "Rhein Energie",
+        "Rheinische Netzgesellschaft",
+        "RWE",
         "RWE Power",
         "Amprion"
       ]
@@ -81,7 +83,7 @@ Dieses Schema dient der Extraktion von allgemeinen Informationen und Metadaten e
     },
     "losId": {
       "type": "string",
-      "description": "Los-ID, falls vorhanden. Tritt meist bei Plänen von Westnetz, Rhein Energie, RWE auf (z.B. '2006').",
+      "description": "Los-ID, falls vorhanden. Tritt bei ÖTM-Plänen auf (z.B. 'Los 2006 Köln' -> '2006').",
       "enum": [
         "2006",
         "2008",
@@ -91,7 +93,7 @@ Dieses Schema dient der Extraktion von allgemeinen Informationen und Metadaten e
     },
     "losName": {
       "type": "string",
-      "description": "Los-Name, falls vorhanden. Tritt meist bei Plänen von Westnetz, Rhein Energie, RWE auf (z.B. 'Köln').",
+      "description": "Los-Name, falls vorhanden. Tritt bei ÖTM-Plänen auf (z.B. 'Los 2006 Köln' -> 'Köln').",
       "enum": [
         "Köln",
         "Düsseldorf-Neuss",
@@ -101,7 +103,7 @@ Dieses Schema dient der Extraktion von allgemeinen Informationen und Metadaten e
     },
     "projekt": {
       "type": "string",
-      "description": "Projekt-Nummer, falls vorhanden. Tritt meist bei Plänen von RWE und Amprion auf (z.B. 'Projekt 01080' -> '01080').",
+      "description": "Projekt-Nummer, falls vorhanden. Tritt bei BMP-Plänen auf (z.B. 'Projekt 01080' -> '01080').",
       "nullable": true
     },
     "blatt": {
