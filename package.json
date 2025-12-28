@@ -1,0 +1,29 @@
+{
+  "name": "powerline-plan-extractor",
+  "version": "1.0.0",
+  "description": "Automatisierte Datenextraktion aus Pflegeplänen für Hochspannungsfreileitungen.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "pdf",
+    "extractor",
+    "vegetation",
+    "powerline",
+    "amprion",
+    "westnetz"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "pdf-lib": "^1.17.1",
+    "pdfjs-dist": "^4.0.379"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.3",
+    "@types/node": "^20.11.5"
+  }
+}
