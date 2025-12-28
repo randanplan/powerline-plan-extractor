@@ -1,0 +1,155 @@
+{
+	"type": "array",
+	"description": "Liste aller Pflegeplan-Maßnahmen, die auf einem Kartenausschnitt einer Stromtrasse abgebildet sind. Maßnahmen sind in farblichen Rechtecken beschrieben.",
+	"items": {
+		"type": "object",
+		"description": "Einzelne Pflegeplan-Maßnahme",
+		"properties": {
+			"peId": {
+				"type": "string",
+				"description": "ID der Maßnahme, oben im Rechteck zu finden (z.B. '0.1' oder '10.2'). Dient als eindeutiger Identifikator innerhalb des Blattes."
+			},
+			"type": {
+				"type": "string",
+				"description": "Art der Maßnahme (z.B. 'Einzelentnahme', 'Standortpflege Mast').",
+				"enum": [
+					"Einzelentnahme",
+					"Einzelentnahme 20 cm bis 40 cm",
+					"Einzelentnahme 41 cm bis 60 cm",
+					"Kroneneinkürzung",
+					"Kronenrückschnitt",
+					"Entbuschen",
+					"Durchforsten",
+					"Auf den Stock setzen",
+					"Heckenschnitt",
+					"Mulchen",
+					"Geh- und Fahrweg (Mulchstreifen)",
+					"Standortpflege Mast",
+					"Standortpflege unter Traversen"
+				]
+			},
+			"aufarbeitung": {
+				"type": "string",
+				"description": "Art der Aufarbeitung des entnommenen Materials (z.B. 'Standard', 'Astwerk häckseln').",
+				"enum": [
+					"Standard",
+					"Astwerk Häckseln",
+					"Astwerk Häckseln & Stammholz Meter",
+					"Astwerk Häckseln & Stammholz nach Vorgabe zuschneiden",
+					"Astwerk Häckseln & Stammholz nach Vorgabe rücken und zuschneiden",
+					"Astwerk Standard",
+					"Astwerk Standard & Stammholz Meter",
+					"Astwerk Standard & Stammholz nach Vorgabe zuschneiden",
+					"Astwerk Standard & Stammholz nach Vorgabe rücken und zuschneiden",
+					"Astwerk Abfahren",
+					"Astwerk & Stammholz Abfahren"
+				]
+			},
+			"fläche_m2_gesamt": {
+				"description": "Die auf dem Plan angegebene Gesamtfläche in Quadratmetern, bei flächenbezogenen Maßnahmen (z.B. '4186m²' für Durchforsten).",
+				"type": "number",
+				"nullable": true
+			},
+			"fläche_m2": {
+				"description": "Die berechnete oder bearbeitete Fläche in Quadratmetern, oft hinter einer Prozentangabe (z.B. '33% - 1381m²' -> 1381m²). Nur bei flächenbezogenen Maßnahmen.",
+				"type": "number",
+				"nullable": true
+			},
+			"prozent": {
+				"type": "number",
+				"description": "Der prozentuale Anteil der Bearbeitung ('100%' | '50%'), steht vor der Flächenangabe, bei flächenbezogenen Maßnahmen.",
+				"nullable": true
+			},
+			"anzahl_stk": {
+				"type": "integer",
+				"description": "Die angegebene Stückzahl ('5 Einzelentnahme...'), bei Einzel- oder Kronen-Maßnahmen.",
+				"nullable": true
+			},
+			"details": {
+				"type": "string",
+				"description": "Wichtige Informationen zur Durchführung der Maßnahme als Freitext (z.B. spezifische Baumarten wie 'Ahorn, Haselnuss, Kirsche', oder besondere Anweisungen)."
+			},
+			"bl_nr": {
+				"type": "string",
+				"nullable": true,
+				"description": "Bauleit-Nummer der Stromleitung BL als 4-stelliger String (z.B. 'BL 4511' -> '4511'), meistens bei Standortpflege-Maßnahmen."
+			},
+			"mast_nr": {
+				"type": "string",
+				"nullable": true,
+				"description": "Mastnummer als 4-stelliger String, mit voranstehenden Nullen aufgefüllt, + optionale Buchstaben (z.B. 'Mast 23' -> '0023', 'Mast 35A' -> '035A'), meistens bei Standortpflege-Maßnahmen."
+			},
+			"kontakt": {
+				"type": "string",
+				"nullable": true,
+				"description": "Informationen zur Kontaktperson (Name, Telefon, E-Mail, etc.), falls relevant für die Maßnahme."
+			},
+			"confidence": {
+				"type": "number",
+				"description": "Geschätzter Vertrauenswert (0-100) für die Genauigkeit der extrahierten Daten dieser Maßnahme."
+			},
+			"rectangle": {
+				"type": "object",
+				"description": "Die Koordinaten des Rechtecks im Bild (in Pixeln), in dem die Maßnahme (das Beschreibungsfeld) gefunden wurde.",
+				"properties": {
+					"x": {
+						"type": "number",
+						"description": "X-Koordinate der oberen linken Ecke"
+					},
+					"y": {
+						"type": "number",
+						"description": "Y-Koordinate der oberen linken Ecke"
+					},
+					"width": {
+						"type": "number",
+						"description": "Breite des Rechtecks"
+					},
+					"height": {
+						"type": "number",
+						"description": "Höhe des Rechtecks"
+					}
+				},
+				"required": [
+					"x",
+					"y",
+					"width",
+					"height"
+				]
+			},
+			"geometry": {
+				"type": "object",
+				"description": "GeoJSON-Punkt-Geometrie des Mittelpunkts oder eines Referenzpunkts der Maßnahme auf der Karte. Dieser Punkt muss manuell oder durch Georeferenzierung hinzugefügt werden.",
+				"properties": {
+					"type": {
+						"type": "string",
+						"enum": [
+							"Point"
+						]
+					},
+					"coordinates": {
+						"type": "array",
+						"description": "Koordinaten der Geometrie [Longitude, Latitude]",
+						"items": {
+							"type": "number",
+							"nullable": true
+						},
+						"minItems": 2,
+						"maxItems": 3
+					}
+				},
+				"required": [
+					"type",
+					"coordinates"
+				]
+			}
+		},
+		"required": [
+			"peId",
+			"type",
+			"aufarbeitung",
+			"details",
+			"confidence",
+			"rectangle"
+		]
+	}
+}

@@ -1,0 +1,111 @@
+{
+  "type": "array",
+  "description": "Liste der Masten, die auf dem Kartenausschnitt des Plans sichtbar sind.",
+  "items": {
+    "type": "object",
+    "description": "Einzelnes Mastobjekt auf der Karte",
+    "properties": {
+      "mastId": {
+        "type": "string",
+        "description": "Die Mastnummer, die auf der Karte abgebildet ist. Sollte auf 4 Stellen mit voranstehenden Nullen aufgefüllt werden, mit optionalen Buchstaben (z.B. '38' -> '0038', '38A' -> '038A')."
+      },
+      "bl_nr": {
+        "type": "string",
+        "nullable": true,
+        "description": "Die Bauleit-Nummer als 4-stelliger String (z.B. 'BL 4511' -> '4511'), zu der der Mast gehört, falls diese explizit am Mast vermerkt ist (z.B. '36(2388)' -> '2388')."
+      },
+      "symbol_rectangle": {
+        "type": "object",
+        "description": "Die Koordinaten des Rechtecks im Bild (in Pixeln), das das Mastsymbol (Kästchen mit Kreuz) umschließt.",
+        "properties": {
+          "x": {
+            "type": "number",
+            "description": "X-Koordinate der oberen linken Ecke"
+          },
+          "y": {
+            "type": "number",
+            "description": "Y-Koordinate der oberen linken Ecke"
+          },
+          "width": {
+            "type": "number",
+            "description": "Breite des Rechtecks"
+          },
+          "height": {
+            "type": "number",
+            "description": "Höhe des Rechtecks"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "width",
+          "height"
+        ]
+      },
+      "text_rectangle": {
+        "type": "object",
+        "description": "Die Koordinaten des Rechtecks im Bild (in Pixeln), das die Mastnummer (Text) umschließt.",
+        "properties": {
+          "x": {
+            "type": "number",
+            "description": "X-Koordinate der oberen linken Ecke"
+          },
+          "y": {
+            "type": "number",
+            "description": "Y-Koordinate der oberen linken Ecke"
+          },
+          "width": {
+            "type": "number",
+            "description": "Breite des Rechtecks"
+          },
+          "height": {
+            "type": "number",
+            "description": "Höhe des Rechtecks"
+          }
+        },
+        "required": [
+          "x",
+          "y",
+          "width",
+          "height"
+        ]
+      },
+      "confidence": {
+        "type": "number",
+        "description": "Geschätzter Vertrauenswert (0-100) für die Erkennung dieses Mastes und seiner Daten auf der Karte."
+      },
+      "geometry": {
+        "type": "object",
+        "description": "GeoJSON-Punkt-Geometrie des Maststandorts. Dieser Punkt muss manuell oder durch Georeferenzierung hinzugefügt werden, da er nicht direkt aus dem Bild extrahiert werden kann.",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "Point"
+            ]
+          },
+          "coordinates": {
+            "type": "array",
+            "description": "Koordinaten der Geometrie [Longitude, Latitude]",
+            "items": {
+              "type": "number",
+              "nullable": true
+            },
+            "minItems": 2,
+            "maxItems": 3
+          }
+        },
+        "required": [
+          "type",
+          "coordinates"
+        ]
+      }
+    },
+    "required": [
+      "mastId",
+      "symbol_rectangle",
+      "text_rectangle",
+      "confidence"
+    ]
+  }
+}
